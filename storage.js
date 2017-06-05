@@ -15,6 +15,7 @@ const BACKUP_INTERVAL = 60 * 60 * 1000;
 class Storage {
 	constructor() {
 		this.databases = {};
+		this.playerbase = {};
 		this.backupInterval = setInterval(() => this.exportDatabases(), BACKUP_INTERVAL);
 	}
 
@@ -29,12 +30,25 @@ class Storage {
 		this.databases[roomid] = JSON.parse(file);
 	}
 
+	importPlayerbase() {
+		let file = '{}';
+		try {
+			file = fs.readFileSync('./playerbase.json').toString();
+		} catch (e) {}
+		this.playerbase = JSON.parse(file);
+	}
+
 	/**
 	 * @param {string} roomid
 	 */
 	exportDatabase(roomid) {
 		if (!(roomid in this.databases)) return;
 		fs.writeFileSync('./databases/' + roomid + '.json', JSON.stringify(this.databases[roomid]));
+	}
+
+	exportPlayerbase() {
+		if (!this.playerbase) return;
+		fs.writeFileSync('./playerbase.json', JSON.stringify(this.playerbase));
 	}
 
 	importDatabases() {
@@ -44,12 +58,27 @@ class Storage {
 			if (!file.endsWith('.json')) continue;
 			this.importDatabase(file.substr(0, file.indexOf('.json')));
 		}
+		this.importPlayerbase();
 	}
 
 	exportDatabases() {
 		for (let roomid in this.databases) {
 			this.exportDatabase(roomid);
 		}
+		this.exportPlayerbase();
+	}
+
+	createPlayer(user) {
+		if (user.id in this.playerbase) return;
+		this.playerbase[user.id] = {
+			name: user.name,
+			alts: [],
+			characters: {},
+			equipment: {},
+			inventory: [],
+			level: 1
+		}
+		if (this.playerbase[user.id].name !== user.name) this.playerbase[user.id].name = user.name;
 	}
 
 	/**
