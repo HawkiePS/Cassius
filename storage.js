@@ -82,6 +82,51 @@ class Storage {
 	}
 
 	/**
+	 * @param {string} name
+	 * @param {string} classChosen
+	 */
+	createCharacter(name, classChosen, user) {
+		let characterID = Tools.toId(name);
+		// if (!(class in Info.classes)) return false;
+		let characterClass = Info.classes[characterClass];
+		if (!(user.id in this.playerbase)) return;
+		if (this.playerbase[user.id].characters[name]) return;
+		this.playerbase[user.id].characters[characterID] = {
+			name: name,
+			classes: [];
+			equipment: {
+				weapon: {},
+				armor: {},
+				headgear: {},
+				footgear: {},
+				accessory: {}
+			}
+			exp: 0,
+			level: 1,
+			stats: {
+				health: characterClass.stats.health,
+				vitality: characterClass.stats.vitality,
+				attack: 0,
+				strength: characterClass.stats.strength,
+				defence: 0,
+				resilience: characterClass.stats.resilience,
+				magic: 0,
+				intelligence: characterClass.stats.intelligence,
+				mdefence: 0,
+				wisdom: characterClass.stats.wisdom,
+				endurance: characterClass.stats.endurance,
+				recovery: characterClass.stats.recovery,
+				speed: characterClass.stats.speed,
+				agility: characterClass.stats.agility,
+				critical: characterClass.stats.critical,
+				evasion: characterClass.stats.evasion
+			}
+			this.playerbase[user.id].characters[characterID].classes.push(characterClass.id);
+		}
+
+
+	}
+	/**
 	 * @param {number} points
 	 * @param {string} roomid
 	 */
