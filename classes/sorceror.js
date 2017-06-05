@@ -23,8 +23,8 @@ class Sorceror {
 			evasion: 0.1
 		};
 	}
-	getStatGains(stat, level) {
-		let levelUps = parseInt(level);
+	getStatGains(stat, levels) {
+		let levelUps = parseInt(levels);
 		levelUps--;
 		return this.statProgression[stat] * levelUps;
 	}
