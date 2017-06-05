@@ -37,6 +37,9 @@ global.Client = require('./client.js');
 global.Games = require('./games.js');
 Games.loadGames();
 
+global.Info = require('./info.js');
+Info.loadClasses();
+
 global.Storage = require('./storage.js');
 Storage.importDatabases();
 
