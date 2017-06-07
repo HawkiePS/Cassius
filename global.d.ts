@@ -7,6 +7,7 @@ import * as RoomsType from './rooms'
 import * as StorageType from './storage'
 import * as ToolsType from './tools'
 import * as UsersType from './users'
+import * as InfoType from './info'
 
 declare global {
     const Client:typeof ClientType
@@ -19,4 +20,5 @@ declare global {
     const Tools:typeof ToolsType
     const Users:typeof UsersType
     const toId:Function
+    const Info:typeof InfoType
 }
