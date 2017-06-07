@@ -1,5 +1,7 @@
 'use strict';
 
+const fs = require('fs');
+
 class Info {
 	constructor() {
 		this.classes = {};
