@@ -10,5 +10,6 @@ declare namespace NodeJS {
         Tools: any;
         Users: any;
         toId: Function;
+        Info: any;
     }
 }
